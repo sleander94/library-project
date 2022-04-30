@@ -1,0 +1,35 @@
+* {
+    padding: 0;
+    margin: 0;
+    background-color: rgb(62, 62, 62);
+
+}
+
+body {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
+table, tr, td, th {
+    background-color: rgb(155, 155, 155);
+    border: 1px solid black;
+    padding: 8px;
+}
+
+table {
+    background-color: rgb(155, 155, 155);
+    border: 1px solid black;
+    margin: 24px;
+    padding: 16px;
+}
+
+tr {
+    font-size: 24px;
+}
+
+.new-book {
+    background-color: rgb(155, 155, 155);
+    padding: 12px 28px 12px 28px;
+    border-radius: 8px;
+}

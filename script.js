@@ -12,6 +12,14 @@ function Book(title, author, pages, read) {
     this.read = read;
 };
 
+Book.prototype.changeReadStatus = function () {
+    if (this.read == '✓') {
+        this.read = '';
+    } else {
+        this.read = '✓';
+    }
+};
+
 // Library functions
 function addBookToLibrary(book) {
     myLibrary.push(book);
@@ -21,15 +29,17 @@ function addBookToLibrary(book) {
 function displayBooks(library) {
     tbody.innerHTML = '';
     for (let book in library) {
-        let newBook = document.createElement('tr');
-        let newValues = Object.values(library[book]);
-        let newIndex = library.indexOf(library[book]);
+        const newBook = document.createElement('tr');
+        const newValues = Object.values(library[book]);
+        const newIndex = library.indexOf(library[book]);
         console.log(newIndex);
         for (value in newValues) {
             let newValue = document.createElement('td');
             newValue.textContent = newValues[value];
             newBook.appendChild(newValue);
         }
+
+
         const removeButton = document.createElement('button');
         removeButton.textContent = 'Remove';
         removeButton.type = 'button';
@@ -121,6 +131,7 @@ addBookButton.addEventListener('click', () => {
 const theHobbit = new Book('The Hobbit', 'JRR Tolkein', 295, '');
 const warbreaker = new Book('Warbreaker', 'Brandon Sanderson', 1210, '✓');
 
+warbreaker.changeReadStatus();
 addBookToLibrary(warbreaker);
 addBookToLibrary(theHobbit);
 //

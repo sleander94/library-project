@@ -1,6 +1,7 @@
 let myLibrary = [];
 const tbody = document.querySelector('tbody');
 const body = document.querySelector('body');
+const form = document.createElement('form');
 
 function Book(title, author, pages, read) {
     this.title = title;
@@ -31,8 +32,6 @@ function displayBooks(library) {
 
 
 function generateBookForm() {
-    const form = document.createElement('form');
-
     const formTitle = document.createElement('h2');
     formTitle.textContent = 'Book Information';
     form.appendChild(formTitle);
@@ -81,6 +80,7 @@ function generateBookForm() {
         const newBook = new Book(newTitle, newAuthor, newPages, newRead);
         addBookToLibrary(newBook);
         displayBooks(myLibrary);
+        form.innerHTML = '';
     });
 
 };
@@ -101,6 +101,7 @@ body.appendChild(addBookButton);
 
 
 addBookButton.addEventListener('click', () => {
+    if (form.innerHTML == '') {
         generateBookForm();
-
+    };
 });

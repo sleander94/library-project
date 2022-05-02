@@ -1,7 +1,6 @@
 let myLibrary = [];
-const library = document.querySelector('table');
+const tbody = document.querySelector('tbody');
 const body = document.querySelector('body');
-
 
 function Book(title, author, pages, read) {
     this.title = title;
@@ -16,20 +15,75 @@ function addBookToLibrary(book) {
 };
 
 
-function displayBooks(lib) {
-    for (let book in lib) {
+function displayBooks(library) {
+    tbody.innerHTML = '';
+    for (let book in library) {
         let newBook = document.createElement('tr');
-        let newValues = Object.values(lib[book]);
+        let newValues = Object.values(library[book]);
         for (value in newValues) {
             let newValue = document.createElement('td');
             newValue.textContent = newValues[value];
             newBook.appendChild(newValue);
         }
-        library.appendChild(newBook);
+        tbody.appendChild(newBook);
     }
 };
 
 
+function generateBookForm() {
+    const form = document.createElement('form');
+
+    const formTitle = document.createElement('h2');
+    formTitle.textContent = 'Book Information';
+    form.appendChild(formTitle);
+
+    const getTitle = document.createElement('input');
+    getTitle.placeholder = 'Title';
+    getTitle.id = 'title';
+    form.appendChild(getTitle);
+
+    const getAuthor = document.createElement('input');
+    getAuthor.placeholder = 'Author';
+    getAuthor.id = 'author';
+    form.appendChild(getAuthor);
+
+    const getPages = document.createElement('input');
+    getPages.placeholder = 'Pages';
+    getPages.id = 'pages';
+    form.appendChild(getPages);
+
+    const getRead = document.createElement('input');
+    getRead.type = 'checkbox';
+    getRead.name = 'check-read';
+    getRead.id = 'read';
+    const readLabel = document.createElement('label');
+    readLabel.for = 'check-read';
+    readLabel.textContent = 'Have you read it?';
+    form.appendChild(readLabel);
+    form.appendChild(getRead);
+
+    const confirmButton = document.createElement('button');
+    confirmButton.textContent = 'Submit';
+    confirmButton.type = 'button';
+    form.appendChild(confirmButton);
+    
+    body.appendChild(form);
+
+
+    confirmButton.addEventListener('click', () => {
+        let newRead = '';
+        if (document.getElementById('read').checked) {
+            newRead += '✓';
+        }
+        let newTitle = document.getElementById('title').value;
+        let newAuthor = document.getElementById('author').value;
+        let newPages = document.getElementById('pages').value;
+        const newBook = new Book(newTitle, newAuthor, newPages, newRead);
+        addBookToLibrary(newBook);
+        displayBooks(myLibrary);
+    });
+
+};
 
 // Testers
 const theHobbit = new Book('The Hobbit', 'JRR Tolkein', 295, 'not read');
@@ -40,14 +94,13 @@ addBookToLibrary(theHobbit);
 displayBooks(myLibrary);
 
 
+const addBookButton = document.createElement('button');
+addBookButton.classList.toggle('new-book');
+addBookButton.textContent = 'Add Book';
+body.appendChild(addBookButton);
 
 
-const newBookButton = document.createElement('button');
-newBookButton.classList.toggle('new-book');
-newBookButton.textContent = 'New Book';
-body.appendChild(newBookButton);
+addBookButton.addEventListener('click', () => {
+        generateBookForm();
 
-
-newBookButton.addEventListener('click', () => {
-    
 });

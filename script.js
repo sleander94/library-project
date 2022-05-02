@@ -38,19 +38,24 @@ function displayBooks(library) {
             newBook.appendChild(newValue);
         }
 
+        const changeReadButtonContainer = document.createElement('td');
         const changeReadButton = document.createElement('button');
         changeReadButton.textContent = 'Mark as read';
         changeReadButton.type = 'button';
-        newBook.appendChild(changeReadButton);
+        changeReadButtonContainer.appendChild(changeReadButton);
+        newBook.appendChild(changeReadButtonContainer);
         changeReadButton.addEventListener('click', () => {
             library[book].changeReadStatus();
             displayBooks(library);
         });
 
+
+        const removeButtonContainer = document.createElement('td');
         const removeButton = document.createElement('button');
         removeButton.textContent = 'X';
         removeButton.type = 'button';
-        newBook.appendChild(removeButton);
+        removeButtonContainer.appendChild(removeButton);
+        newBook.appendChild(removeButtonContainer);
         removeButton.addEventListener('click', () => {
             library.splice(newIndex, 1);
             displayBooks(library);
@@ -129,9 +134,6 @@ addBookButton.addEventListener('click', () => {
         generateBookForm();
     };
 });
-
-
-
 
 
 // Testers

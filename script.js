@@ -40,7 +40,7 @@ function displayBooks(library) {
 
         const changeReadButtonContainer = document.createElement('td');
         const changeReadButton = document.createElement('button');
-        changeReadButton.textContent = 'Mark as read';
+        changeReadButton.textContent = 'Change read status';
         changeReadButton.type = 'button';
         changeReadButtonContainer.appendChild(changeReadButton);
         newBook.appendChild(changeReadButtonContainer);
@@ -67,6 +67,8 @@ function displayBooks(library) {
 
 // Define structure of form
 function generateBookForm() {
+    const form = document.createElement('form');
+
     const formTitle = document.createElement('h2');
     formTitle.textContent = 'Book Information';
     form.appendChild(formTitle);
@@ -88,10 +90,9 @@ function generateBookForm() {
 
     const getRead = document.createElement('input');
     getRead.type = 'checkbox';
-    getRead.name = 'check-read';
     getRead.id = 'read';
     const readLabel = document.createElement('label');
-    readLabel.for = 'check-read';
+    readLabel.setAttribute('for', 'read');
     readLabel.textContent = 'Have you read it?';
     form.appendChild(readLabel);
     form.appendChild(getRead);
@@ -116,7 +117,7 @@ function generateBookForm() {
             const newBook = new Book(newTitle, newAuthor, newPages, newRead);
             addBookToLibrary(newBook);
             displayBooks(myLibrary);
-            form.innerHTML = '';
+            form.remove();
         } else {
             alert('Please complete the form.');
         }
@@ -137,11 +138,7 @@ addBookButton.addEventListener('click', () => {
 
 
 // Testers
-const theHobbit = new Book('The Hobbit', 'JRR Tolkein', 295, '');
 const warbreaker = new Book('Warbreaker', 'Brandon Sanderson', 1210, '✓');
-
 addBookToLibrary(warbreaker);
-addBookToLibrary(theHobbit);
-//
 displayBooks(myLibrary);
 

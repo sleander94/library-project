@@ -4,28 +4,29 @@ const tbody = document.querySelector('tbody');
 const body = document.querySelector('body');
 const form = document.createElement('form');
 
-// Create Book object
-function Book(title, author, pages, read) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
-};
-
-Book.prototype.changeReadStatus = function () {
-    if (this.read == '✓') {
-        this.read = '';
-    } else {
-        this.read = '✓';
+// Create book class
+class Book {
+    constructor (title, author, pages, read) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
     }
-};
 
-// Library functions
-function addBookToLibrary(book) {
-    myLibrary.push(book);
-};
+    changeReadStatus() {
+        if (this.read == '✓') {
+            this.read = '';
+        } else {
+            this.read = '✓';
+        }
+    }
 
+    addToLibrary() {
+        myLibrary.push(this);
+    }
+}
 
+// Show books in library with buttons to remove and change read status
 function displayBooks(library) {
     tbody.innerHTML = '';
     for (let book in library) {
@@ -115,7 +116,7 @@ function generateBookForm() {
         let newPages = document.getElementById('pages').value;
         if (newTitle && newAuthor && newPages) {
             const newBook = new Book(newTitle, newAuthor, newPages, newRead);
-            addBookToLibrary(newBook);
+            newBook.addToLibrary();
             displayBooks(myLibrary);
             form.remove();
         } else {
@@ -139,6 +140,6 @@ addBookButton.addEventListener('click', () => {
 
 // Testers
 const warbreaker = new Book('Warbreaker', 'Brandon Sanderson', 1210, '✓');
-addBookToLibrary(warbreaker);
+warbreaker.addToLibrary();
 displayBooks(myLibrary);
 
